@@ -1,0 +1,273 @@
+{
+    "meta": {
+        "label": "Language Detection",
+        "description": "Recipe to detect the dominant language of a text",
+        "icon": "icon-globe"
+    },
+
+    "kind": "PYTHON",
+    
+
+    "inputRoles": [
+        {
+            "name": "input_dataset",
+            "label": "Input Dataset",
+            "description": "Dataset with text columns we want to get the language from",
+            "arity": "UNARY",
+            "required": true,
+            "acceptsDataset": true
+        }
+    ],
+
+    "outputRoles": [
+        {
+            "name": "output_dataset",
+            "label": "Output Dataset",
+            "arity": "UNARY",
+            "required": false,
+            "acceptsDataset": true
+        }
+    ],
+
+    "paramsPythonSetup": "get_language_list.py",
+
+    "params": [{
+            "name": "separator_input",
+            "label": "Input Parameters",
+            "type": "SEPARATOR"
+        },
+        {
+            "name": "text_col_list",
+            "label": "Text columns",
+            "type": "COLUMNS",
+            "description": "",
+            "mandatory": true,
+            "columnRole": "input_dataset",
+            "allowedColumnTypes": [
+                "string"
+            ]
+        },
+              
+        {
+        "name": "separator_advanced",
+        "label": "Advanced",
+        "type": "SEPARATOR"
+
+          },
+        {
+            "name": "expert",
+            "label": "Expert",
+            "type": "BOOLEAN",
+            "defaultValue": false
+        },
+               {
+       "type": "MULTISELECT",
+       "name": "constrained_languages",
+              "label": "Restricted set of languages",
+                   
+               "getChoicesFromPython": true,
+                   "visibilityCondition": "model.expert == true"
+
+        },
+            {"name": "output_upon_confidence",
+            "label": "Output upon confidence",
+            "description": "Compute language if confidence is above a given level",
+            "type": "BOOLEAN",
+            "defaultValue": false,
+            "visibilityCondition": "model.expert == true"
+
+        },
+        {
+        "type": "INT",
+        "name": "confidence_level",
+        "label": "Confidence Level",
+        "minI": 0,
+            "maxI": 100,
+            "defaultValue": 95,
+            "visibilityCondition": "model.output_upon_confidence == true && model.expert == true"
+
+        },
+        {
+       "type": "SELECT",
+       "name": "fallback_output",
+              "label": "Fallback Output",
+                  "selectChoices": [
+               {
+                "label": "\"Unknown\"",
+                "value": "unknown"
+                },
+               {
+                "label": "Albanian",
+                "value": "sq"
+                },{
+                "label": "Albanian",
+                "value": "sq"
+                },
+                {
+                "label": "Arabic",
+                "value": "ar"
+                },
+                {
+                "label": "Bulgarian",
+                "value": "bg"
+                },
+                {
+                "label": "Catalan",
+                "value": "ca"
+                },
+                {
+                "label": "Chinese",
+                "value": "zh"
+                },
+                {
+                "label": "Croatian",
+                "value": "hr"
+                },
+                {
+                "label": "Czech",
+                "value": "cs"
+                },
+                {
+                "label": "Danish",
+                "value": "da"
+                },
+                {
+                "label": "Dutch",
+                "value": "nl"
+                },
+                {
+                "label": "English",
+                "value": "en"
+                },
+                {
+                "label": "Estonian",
+                "value": "et"
+                },
+                {
+                "label": "Finnish",
+                "value": "fi"
+                },
+                {
+                "label": "French",
+                "value": "fr"
+                },
+                {
+                "label": "German",
+                "value": "de"
+                },
+                {
+                "label": "Greek",
+                "value": "el"
+                },
+                {
+                "label": "Hebrew",
+                "value": "he"
+                },
+                {
+                "label": "Hungarian",
+                "value": "hu"
+                },
+                {
+                "label": "Icelandic",
+                "value": "is"
+                },
+                {
+                "label": "Indonesian",
+                "value": "id"
+                },
+                {
+                "label": "Italian",
+                "value": "it"
+                },
+                {
+                "label": "Japanese",
+                "value": "ja"
+                },
+                {
+                "label": "Korean",
+                "value": "ko"
+                },
+                {
+                "label": "Latvian",
+                "value": "lv"
+                },
+                {
+                "label": "Lithuanian",
+                "value": "lt"
+                },
+                {
+                "label": "Persian",
+                "value": "fa"
+                },
+                {
+                "label": "Polish",
+                "value": "pl"
+                },
+                {
+                "label": "Portuguese",
+                "value": "pt"
+                },
+                {
+                "label": "Romanian",
+                "value": "ro"
+                },
+                {
+                "label": "Russian",
+                "value": "ru"
+                },
+                {
+                "label": "Serbian",
+                "value": "sr"
+                },
+                {
+                "label": "Slovak",
+                "value": "sk"
+                },
+                {
+                "label": "Slovenian",
+                "value": "sl"
+                },
+                {
+                "label": "Spanish",
+                "value": "es"
+                },
+                {
+                "label": "Swedish",
+                "value": "sv"
+                },
+                {
+                "label": "Thai",
+                "value": "th"
+                },
+                {
+                "label": "Turkish",
+                "value": "tr"
+                },
+                {
+                "label": "Ukrainian",
+                "value": "uk"
+                },
+                {
+                "label": "Vietnamese",
+                "value": "vi"
+                }],
+            "defaultValue": "unknown",
+            "description": "The output will be \"Unknown\" or a selected language if language detection confidence is too low",
+            "visibilityCondition": "model.output_upon_confidence == true && model.expert == true"
+        },
+
+               {"type":"STRING",
+          "name": "fallback_custom_value",
+          "label": "Fallback Language Value",
+          "defaultValue": "No Proper Language Detected",
+          "visibilityCondition": "model.output_upon_confidence == true && model.fallback_language == 'custom' && model.expert == true"}
+],
+    // The field "resourceKeys" holds a list of keys that allows to limit the number
+    // of concurrent executions and activities triggered by this recipe.
+    //
+    // Administrators can configure the limit per resource key in the Administration > Settings > Flow build
+    // screen.
+
+    "resourceKeys": []
+
+}
