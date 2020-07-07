@@ -4,10 +4,7 @@
         "description": "Recipe to detect the dominant language of a text",
         "icon": "icon-globe"
     },
-
     "kind": "PYTHON",
-    
-
     "inputRoles": [
         {
             "name": "input_dataset",
@@ -18,7 +15,6 @@
             "acceptsDataset": true
         }
     ],
-
     "outputRoles": [
         {
             "name": "output_dataset",
@@ -28,10 +24,9 @@
             "acceptsDataset": true
         }
     ],
-
     "paramsPythonSetup": "get_language_list.py",
-
-    "params": [{
+    "params": [
+        {
             "name": "separator_input",
             "label": "Input Parameters",
             "type": "SEPARATOR"
@@ -47,227 +42,218 @@
                 "string"
             ]
         },
-              
         {
-        "name": "separator_advanced",
-        "label": "Advanced",
-        "type": "SEPARATOR"
-
-          },
+            "name": "separator_advanced",
+            "label": "Advanced",
+            "type": "SEPARATOR"
+        },
         {
             "name": "expert",
             "label": "Expert",
             "type": "BOOLEAN",
             "defaultValue": false
         },
-               {
-       "type": "MULTISELECT",
-       "name": "constrained_languages",
-              "label": "Restricted set of languages",
-                   
-               "getChoicesFromPython": true,
-                   "visibilityCondition": "model.expert == true"
-
+        {
+            "type": "MULTISELECT",
+            "name": "constrained_languages",
+            "label": "Restricted set of languages",
+            "getChoicesFromPython": true,
+            "visibilityCondition": "model.expert == true"
         },
-            {"name": "output_upon_confidence",
+        {
+            "name": "output_upon_confidence",
             "label": "Output upon confidence",
             "description": "Compute language if confidence is above a given level",
             "type": "BOOLEAN",
             "defaultValue": false,
             "visibilityCondition": "model.expert == true"
-
         },
         {
-        "type": "INT",
-        "name": "confidence_level",
-        "label": "Confidence Level",
-        "minI": 0,
+            "type": "INT",
+            "name": "confidence_level",
+            "label": "Confidence Level",
+            "minI": 0,
             "maxI": 100,
             "defaultValue": 95,
             "visibilityCondition": "model.output_upon_confidence == true && model.expert == true"
-
         },
         {
-       "type": "SELECT",
-       "name": "fallback_output",
-              "label": "Fallback Output",
-                  "selectChoices": [
-               {
-                "label": "\"Unknown\"",
-                "value": "unknown"
-                },
-               {
-                "label": "Albanian",
-                "value": "sq"
-                },{
-                "label": "Albanian",
-                "value": "sq"
+            "type": "SELECT",
+            "name": "fallback_output",
+            "label": "Fallback Output",
+            "selectChoices": [
+                {
+                    "label": "\"Unknown\"",
+                    "value": "unknown"
                 },
                 {
-                "label": "Arabic",
-                "value": "ar"
+                    "label": "Albanian",
+                    "value": "sq"
                 },
                 {
-                "label": "Bulgarian",
-                "value": "bg"
+                    "label": "Albanian",
+                    "value": "sq"
                 },
                 {
-                "label": "Catalan",
-                "value": "ca"
+                    "label": "Arabic",
+                    "value": "ar"
                 },
                 {
-                "label": "Chinese",
-                "value": "zh"
+                    "label": "Bulgarian",
+                    "value": "bg"
                 },
                 {
-                "label": "Croatian",
-                "value": "hr"
+                    "label": "Catalan",
+                    "value": "ca"
                 },
                 {
-                "label": "Czech",
-                "value": "cs"
+                    "label": "Chinese",
+                    "value": "zh"
                 },
                 {
-                "label": "Danish",
-                "value": "da"
+                    "label": "Croatian",
+                    "value": "hr"
                 },
                 {
-                "label": "Dutch",
-                "value": "nl"
+                    "label": "Czech",
+                    "value": "cs"
                 },
                 {
-                "label": "English",
-                "value": "en"
+                    "label": "Danish",
+                    "value": "da"
                 },
                 {
-                "label": "Estonian",
-                "value": "et"
+                    "label": "Dutch",
+                    "value": "nl"
                 },
                 {
-                "label": "Finnish",
-                "value": "fi"
+                    "label": "English",
+                    "value": "en"
                 },
                 {
-                "label": "French",
-                "value": "fr"
+                    "label": "Estonian",
+                    "value": "et"
                 },
                 {
-                "label": "German",
-                "value": "de"
+                    "label": "Finnish",
+                    "value": "fi"
                 },
                 {
-                "label": "Greek",
-                "value": "el"
+                    "label": "French",
+                    "value": "fr"
                 },
                 {
-                "label": "Hebrew",
-                "value": "he"
+                    "label": "German",
+                    "value": "de"
                 },
                 {
-                "label": "Hungarian",
-                "value": "hu"
+                    "label": "Greek",
+                    "value": "el"
                 },
                 {
-                "label": "Icelandic",
-                "value": "is"
+                    "label": "Hebrew",
+                    "value": "he"
                 },
                 {
-                "label": "Indonesian",
-                "value": "id"
+                    "label": "Hungarian",
+                    "value": "hu"
                 },
                 {
-                "label": "Italian",
-                "value": "it"
+                    "label": "Icelandic",
+                    "value": "is"
                 },
                 {
-                "label": "Japanese",
-                "value": "ja"
+                    "label": "Indonesian",
+                    "value": "id"
                 },
                 {
-                "label": "Korean",
-                "value": "ko"
+                    "label": "Italian",
+                    "value": "it"
                 },
                 {
-                "label": "Latvian",
-                "value": "lv"
+                    "label": "Japanese",
+                    "value": "ja"
                 },
                 {
-                "label": "Lithuanian",
-                "value": "lt"
+                    "label": "Korean",
+                    "value": "ko"
                 },
                 {
-                "label": "Persian",
-                "value": "fa"
+                    "label": "Latvian",
+                    "value": "lv"
                 },
                 {
-                "label": "Polish",
-                "value": "pl"
+                    "label": "Lithuanian",
+                    "value": "lt"
                 },
                 {
-                "label": "Portuguese",
-                "value": "pt"
+                    "label": "Persian",
+                    "value": "fa"
                 },
                 {
-                "label": "Romanian",
-                "value": "ro"
+                    "label": "Polish",
+                    "value": "pl"
                 },
                 {
-                "label": "Russian",
-                "value": "ru"
+                    "label": "Portuguese",
+                    "value": "pt"
                 },
                 {
-                "label": "Serbian",
-                "value": "sr"
+                    "label": "Romanian",
+                    "value": "ro"
                 },
                 {
-                "label": "Slovak",
-                "value": "sk"
+                    "label": "Russian",
+                    "value": "ru"
                 },
                 {
-                "label": "Slovenian",
-                "value": "sl"
+                    "label": "Serbian",
+                    "value": "sr"
                 },
                 {
-                "label": "Spanish",
-                "value": "es"
+                    "label": "Slovak",
+                    "value": "sk"
                 },
                 {
-                "label": "Swedish",
-                "value": "sv"
+                    "label": "Slovenian",
+                    "value": "sl"
                 },
                 {
-                "label": "Thai",
-                "value": "th"
+                    "label": "Spanish",
+                    "value": "es"
                 },
                 {
-                "label": "Turkish",
-                "value": "tr"
+                    "label": "Swedish",
+                    "value": "sv"
                 },
                 {
-                "label": "Ukrainian",
-                "value": "uk"
+                    "label": "Thai",
+                    "value": "th"
                 },
                 {
-                "label": "Vietnamese",
-                "value": "vi"
-                }],
+                    "label": "Turkish",
+                    "value": "tr"
+                },
+                {
+                    "label": "Ukrainian",
+                    "value": "uk"
+                },
+                {
+                    "label": "Vietnamese",
+                    "value": "vi"
+                }
+            ],
             "defaultValue": "unknown",
             "description": "The output will be \"Unknown\" or a selected language if language detection confidence is too low",
             "visibilityCondition": "model.output_upon_confidence == true && model.expert == true"
         },
-
-               {"type":"STRING",
-          "name": "fallback_custom_value",
-          "label": "Fallback Language Value",
-          "defaultValue": "No Proper Language Detected",
-          "visibilityCondition": "model.output_upon_confidence == true && model.fallback_language == 'custom' && model.expert == true"}
-],
-    // The field "resourceKeys" holds a list of keys that allows to limit the number
-    // of concurrent executions and activities triggered by this recipe.
-    //
-    // Administrators can configure the limit per resource key in the Administration > Settings > Flow build
-    // screen.
-
+        {
+            "type": "STRING",
+            "name": "fallback_custom_value",
+            "label": "Fallback Language Value",
+            "defaultValue": "No Proper Language Detected",
+            "visibilityCondition": "model.output_upon_confidence == true && model.fallback_language == 'custom' && model.expert == true"
+        }
+    ],
     "resourceKeys": []
-
 }

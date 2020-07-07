@@ -7,7 +7,9 @@
         "description": "Detect language from text",
         "author": "Dataiku (Damien JACQUEMART and Alex COMBESSIE)",
         "icon": "icon-globe",
-        "tags": ["NLP"],
+        "tags": [
+            "NLP"
+        ],
         "url": "https://www.dataiku.com/product/plugins/nlp-language-detection/",
         "licenseInfo": "Apache Software License",
         "supportLevel": "TIER2_SUPPORT"
