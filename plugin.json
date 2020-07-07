@@ -1,1 +1,15 @@
-
+{
+    "id": "nlp-language-detection",
+    "version": "1.0.0",
+    "meta": {
+        "label": "Language Detection",
+        "category": "Natural Language Processing",
+        "description": "Detect language from text",
+        "author": "Dataiku (Damien JACQUEMART and Alex COMBESSIE)",
+        "icon": "icon-globe",
+        "tags": ["NLP"],
+        "url": "https://www.dataiku.com/product/plugins/nlp-language-detection/",
+        "licenseInfo": "Apache Software License",
+        "supportLevel": "TIER2_SUPPORT"
+    }
+}
