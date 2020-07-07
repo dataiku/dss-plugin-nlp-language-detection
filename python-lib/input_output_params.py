@@ -29,14 +29,11 @@ def get_params(recipe_config):
         else:
             params["constraint_languages"] = False
 
-        if _p("output_upon_confidence"):
-            params["confidence_level"] = _p("confidence_level")
-            params["confidence_level_required"] = True
-            params["fallback_output"] = _p("fallback_output")
+        params["confidence_level"] = _p("confidence_level")
+        params["fallback_output"] = _p("fallback_output")
 
-        else:
-            params["confidence_level"] = 0
-            params["confidence_level_required"] = False
+        params["confidence_level"] = 0
+        params["confidence_level_required"] = False
 
     else:
         params["constrained_languages"] = []

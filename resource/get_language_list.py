@@ -1,6 +1,5 @@
-from language_dict import language_dict
+from language_dict import SUPPORTED_LANGUAGES
 
 
 def do(payload, config, plugin_config, inputs):
-    choices = language_dict()
-    return {"choices": choices}
+    return {"choices": SUPPORTED_LANGUAGES}

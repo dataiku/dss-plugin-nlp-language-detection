@@ -1,10 +1,9 @@
-from language_dict import language_dict
+from language_dict import SUPPORTED_LANGUAGES, LANGUAGE_REMAPPING
 from langid.langid import LanguageIdentifier, model
 import cld3
 import pandas as pd
 
-language_code_dict = {k["value"]: k["label"] for k in language_dict()}
-language_code_dict["unknown"] = "Unknown"
+language_code_dict = {k["value"]: k["label"] for k in SUPPORTED_LANGUAGES}
 
 
 class LanguageDetector:
@@ -16,11 +15,11 @@ class LanguageDetector:
             self.identifier.set_languages(self.params["constrained_languages"])
 
     def _get_language_name_from_id(self, lang_id):
-        return language_code_dict[lang_id]
+        return language_code_dict.get(lang_id, "")
 
     def _confidence_level_check(self, lang_id, lang_probability):
 
-        if self.params["confidence_level_required"] and lang_probability < self.params["confidence_level"] / 100.0:
+        if lang_probability < self.params["confidence_level"] / 100.0:
             lang_id = self.params["fallback_output"]
             lang_name = self._get_language_name_from_id(self.params["fallback_output"])
             return self._to_pdSeries(lang_id, lang_name, lang_probability)
@@ -48,6 +47,8 @@ class LanguageDetector:
     def _cld3_detection(self, doc):
         language_detection_object = cld3.get_language(doc)
         lang_id = language_detection_object.language[:2]
+        for original_code, new_code in LANGUAGE_REMAPPING.items():
+            lang_id = lang_id.replace(original_code, new_code)
         lang_probability = language_detection_object.probability
 
         return self._confidence_level_check(lang_id, lang_probability)
@@ -56,7 +57,7 @@ class LanguageDetector:
         if self.params["constraint_languages"]:
             return self._langid_detection(doc)
 
-        if len(doc) < 15:
+        if len(doc) <= 140:  # tweet
             return self._langid_detection(doc)
         else:
             return self._cld3_detection(doc)
