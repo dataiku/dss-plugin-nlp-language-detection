@@ -1,15 +1,16 @@
 {
     "meta": {
         "label": "Language Detection",
-        "description": "Recipe to detect the dominant language of a text",
+        "description": "Detect the dominant language of a text among 113 supported languages",
         "icon": "icon-globe"
     },
     "kind": "PYTHON",
+    "selectableFromDataset": "input_dataset",
     "inputRoles": [
         {
             "name": "input_dataset",
             "label": "Input Dataset",
-            "description": "Dataset with text columns we want to get the language from",
+            "description": "Dataset containing text data",
             "arity": "UNARY",
             "required": true,
             "acceptsDataset": true
@@ -19,8 +20,9 @@
         {
             "name": "output_dataset",
             "label": "Output Dataset",
+            "description": "Dataset enriched with detected languages",
             "arity": "UNARY",
-            "required": false,
+            "required": true,
             "acceptsDataset": true
         }
     ],
@@ -32,10 +34,9 @@
             "type": "SEPARATOR"
         },
         {
-            "name": "text_col_list",
-            "label": "Text columns",
-            "type": "COLUMNS",
-            "description": "",
+            "name": "text_column",
+            "label": "Text column",
+            "type": "COLUMN",
             "mandatory": true,
             "columnRole": "input_dataset",
             "allowedColumnTypes": [
@@ -55,33 +56,31 @@
         },
         {
             "type": "MULTISELECT",
-            "name": "constrained_languages",
-            "label": "Restricted set of languages",
+            "name": "language_scope",
+            "label": "Language scope",
+            "description": "Scope of languages to choose from. Leave empty to use all 113 languages.",
             "getChoicesFromPython": true,
-            "visibilityCondition": "model.expert == true"
+            "visibilityCondition": "model.expert == true",
+            "mandatory": false
         },
         {
-            "type": "INT",
-            "name": "confidence_level",
-            "label": "Confidence Level",
-            "minI": 0,
-            "maxI": 100,
-            "defaultValue": 95,
-            "visibilityCondition": "model.output_upon_confidence == true && model.expert == true"
+            "type": "DOUBLE",
+            "name": "minimum_score",
+            "label": "Minimum score",
+            "description": "Minimum confidence score (from 0 to 1) for the language to be detected. Default is 0 (no filtering).",
+            "minD": 0,
+            "maxD": 1,
+            "defaultValue": 0,
+            "visibilityCondition": "model.expert == true"
         },
         {
             "type": "SELECT",
-            "name": "fallback_output",
-            "label": "Fallback Output",
+            "name": "fallback_language",
+            "label": "Fallback language",
+            "description": "Fallback if the detected language is not within the chosen scope or below minimum score. Leave empty to output an empty cell.",
             "getChoicesFromPython": true,
-            "visibilityCondition": "model.expert == true"
-        },
-        {
-            "type": "STRING",
-            "name": "fallback_custom_value",
-            "label": "Fallback Language Value",
-            "defaultValue": "No Proper Language Detected",
-            "visibilityCondition": "model.output_upon_confidence == true && model.fallback_language == 'custom' && model.expert == true"
+            "visibilityCondition": "model.expert == true",
+            "mandatory": false
         }
     ],
     "resourceKeys": []

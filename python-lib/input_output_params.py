@@ -1,44 +1,35 @@
-from dataiku.customrecipe import get_input_names_for_role, get_output_names_for_role
+# -*- coding: utf-8 -*-
+import logging
+from typing import Dict
+
+from language_dict import SUPPORTED_LANGUAGES
 
 
-def get_input_output():
-    input_dataset = get_input_names_for_role("input_dataset")[0]
-    output_dataset = get_output_names_for_role("output_dataset")[0]
-
-    return input_dataset, output_dataset
-
-
-def get_params(recipe_config):
-    def _p(param_name, default=None):
-        return recipe_config.get(param_name, default)
-
+def load_params(recipe_config: Dict):
     params = {}
-
-    # General parameters
-    params["text_col_list"] = _p("text_col_list")
-
-    # Language parameters
-    params["language"] = _p("language")
-    params["detect_language"] = _p("detect_language")
-
-    if _p("expert"):
-        params["constrained_languages"] = _p("constrained_languages")
-
-        if len(params["constrained_languages"]) > 0:
-            params["constraint_languages"] = True
-        else:
-            params["constraint_languages"] = False
-
-        params["confidence_level"] = _p("confidence_level")
-        params["fallback_output"] = _p("fallback_output")
-
-        params["confidence_level"] = 0
-        params["confidence_level_required"] = False
-
+    # Text column
+    params["text_column"] = recipe_config.get("text_column")
+    assert params["text_column"] is not None and params["text_column"] != ""
+    logging.info("[PLUGIN PARAMETER] Text column: {}".format(params["text_column"]))
+    # Language scope
+    params["language_scope"] = recipe_config.get("language_scope", [])
+    if len(params["language_scope"]) == 0:
+        params["language_scope"] = [l.get("value") for l in SUPPORTED_LANGUAGES]
+    assert len(params["language_scope"]) != 0
+    logging.info(
+        "[PLUGIN PARAMETER] Scope of {:d} languages: {}".format(len(params["language_scope"]), params["language_scope"])
+    )
+    # Minimum score
+    params["minimum_score"] = float(recipe_config.get("minimum_score"))
+    assert params["minimum_score"] >= 0 and params["minimum_score"] <= 1
+    if params["minimum_score"] == 0:
+        logging.info("[PLUGIN PARAMETER] No minimum score for detection")
     else:
-        params["constrained_languages"] = []
-        params["constraint_languages"] = False
-        params["confidence_level"] = 0
-        params["confidence_level_required"] = False
-
+        logging.info("[PLUGIN PARAMETER] Minimum score for detection: {:d}".format(params["minimum_score"]))
+    # Fallback language
+    params["fallback_language"] = recipe_config.get("fallback_language", "")
+    if params["fallback_language"] == "":
+        logging.info("No fallback language")
+    else:
+        logging.info("Fallback language: {}".format(params["fallback_language"]))
     return params

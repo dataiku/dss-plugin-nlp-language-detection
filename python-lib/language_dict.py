@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 SUPPORTED_LANGUAGES = [
     {"label": "Afrikaans", "value": "af"},
     {"label": "Albanian", "value": "sq"},
