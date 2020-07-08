@@ -1,7 +1,7 @@
 {
     "meta": {
         "label": "Language Detection",
-        "description": "Detect the dominant language of a text among 113 supported languages",
+        "description": "Detect the dominant language of a text among 114 supported languages",
         "icon": "icon-globe"
     },
     "kind": "PYTHON",
@@ -58,7 +58,7 @@
             "type": "MULTISELECT",
             "name": "language_scope",
             "label": "Language scope",
-            "description": "Scope of languages to choose from. Leave empty to use all 113 languages.",
+            "description": "Scope of languages to choose from. Leave empty to use all 114 languages.",
             "getChoicesFromPython": true,
             "visibilityCondition": "model.expert == true",
             "mandatory": false
@@ -67,7 +67,7 @@
             "type": "DOUBLE",
             "name": "minimum_score",
             "label": "Minimum score",
-            "description": "Minimum confidence score (from 0 to 1) for the language to be detected. Default is 0 (no filtering).",
+            "description": "Minimum confidence score (from 0 to 1) for the language to be detected. Leave at 0 to apply no filtering.",
             "minD": 0,
             "maxD": 1,
             "defaultValue": 0,

@@ -36,6 +36,7 @@ SUPPORTED_LANGUAGES = [
     {"label": "Greek", "value": "el"},
     {"label": "Gujarati", "value": "gu"},
     {"label": "Haitian", "value": "ht"},
+    {"label": "Hausa", "value": "ha"},
     {"label": "Hebrew", "value": "he"},
     {"label": "Hindi", "value": "hi"},
     {"label": "Hungarian", "value": "hu"},
@@ -114,6 +115,26 @@ SUPPORTED_LANGUAGES = [
     {"label": "Yiddish", "value": "yi"},
     {"label": "Yoruba", "value": "yo"},
     {"label": "Zulu", "value": "zu"},
+]
+
+SUPPORTED_LANGUAGES_IN_CLD3_NOT_IN_LANGID = [
+    "fy",
+    "gd",
+    "ha",
+    "ig",
+    "mi",
+    "my",
+    "ny",
+    "sd",
+    "sm",
+    "sn",
+    "so",
+    "st",
+    "su",
+    "tg",
+    "uz",
+    "yi",
+    "yo",
 ]
 
 # Rare cases of ISO code replacements and oddities

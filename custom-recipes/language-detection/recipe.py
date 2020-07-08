@@ -12,8 +12,12 @@ params = load_params(recipe_config)
 
 # Run
 df = dataiku.Dataset(input_dataset).get_dataframe()
-language_detector = LanguageDetector(params)
-output_df = language_detector.compute(df)
+language_detector = LanguageDetector(
+    language_scope=params["language_scope"],
+    minimum_score=params["minimum_score"],
+    fallback_language=params["fallback_language"],
+)
+output_df = language_detector.detect_languages_df(df, params["text_column"])
 
 # Write output
 output = dataiku.Dataset(output_dataset)
