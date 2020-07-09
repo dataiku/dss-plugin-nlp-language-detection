@@ -1,7 +1,7 @@
 {
     "meta": {
         "label": "Language Detection",
-        "description": "Detect the dominant language of a text among 114 supported languages",
+        "description": "Detect dominant languages in a text column among 114 ISO 639-1 languages",
         "icon": "icon-globe"
     },
     "kind": "PYTHON",

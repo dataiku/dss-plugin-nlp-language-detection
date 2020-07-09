@@ -2,6 +2,7 @@
 import logging
 from typing import List, AnyStr
 from concurrent.futures import ThreadPoolExecutor
+from collections import OrderedDict
 
 import pandas as pd
 import cld3
@@ -24,11 +25,13 @@ class LanguageDetector:
 
     LANGID_CLD3_NUM_CHAR_THRESHOLD = 140
     NUM_THREADS = 4
-    COLUMN_DESCRIPTION_DICT = {
-        "language_code": "Language code in ISO 639-1 format",
-        "language_name": "Language name in ISO 639-1 format",
-        "language_score": "Confidence score from 0 to 1",
-    }
+    COLUMN_DESCRIPTION_DICT = OrderedDict(
+        [
+            ("language_code", "Language code in ISO 639-1 format"),
+            ("language_name", "Language name in ISO 639-1 format"),
+            ("language_score", "Confidence score from 0 to 1"),
+        ]
+    )
 
     def __init__(
         self,
@@ -39,7 +42,7 @@ class LanguageDetector:
         self.language_scope = language_scope
         self.minimum_score = float(minimum_score)
         self.fallback_language = fallback_language
-        self.column_description_dict = self.COLUMN_DESCRIPTION_DICT  # changed when calling detect_languages_df
+        self.column_description_dict = self.COLUMN_DESCRIPTION_DICT  # may be changed by detect_languages_df
         self._langid_identifier = LanguageIdentifier.from_modelstring(model, norm_probs=True)
         self._langid_identifier.set_languages(
             [l for l in self.language_scope if l not in SUPPORTED_LANGUAGES_IN_CLD3_NOT_IN_LANGID]
@@ -89,15 +92,18 @@ class LanguageDetector:
         lang_id, lang_probability = self._detection_filter(doc, lang_id, lang_probability)
         # Enrich with language human name
         lang_name = supported_languages_dict.get(lang_id, "")
+        # Round probability to 3 decimals
+        lang_probability = round(lang_probability, 3) if lang_probability else None
         return (lang_id, lang_name, lang_probability)
 
     def detect_languages_df(self, df: pd.DataFrame, text_column: AnyStr) -> pd.DataFrame:
-        self.output_column_dict = {
-            generate_unique(k, df.keys(), text_column): v for k, v in self.COLUMN_DESCRIPTION_DICT.items()
-        }
+        self.column_description_dict = OrderedDict()
+        for k, v in self.COLUMN_DESCRIPTION_DICT.items():
+            self.column_description_dict[generate_unique(k, df.keys(), text_column)] = v
         doc_iterator = (doc for _, doc in df[text_column].astype(str).iteritems())
+        output_df = df.copy()
         with ThreadPoolExecutor(max_workers=self.NUM_THREADS) as executor:
             lang_output_tuple_list = list(executor.map(self.detect_language_doc, doc_iterator))
-        for i, col in enumerate(self.output_column_dict.keys()):
-            df[col] = [t[i] for t in lang_output_tuple_list]
-        return df
+        for i, col in enumerate(self.column_description_dict.keys()):
+            output_df[col] = [t[i] for t in lang_output_tuple_list]
+        return output_df

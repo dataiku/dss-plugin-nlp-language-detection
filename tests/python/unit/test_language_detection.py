@@ -3,14 +3,40 @@
 # pytest automatically runs all the function starting with "test_"
 # see https://docs.pytest.org for more information
 
-import os
 import sys
 from pathlib import Path
 
+import pandas as pd
+import numpy as np
 
 # Add python-lib to the path to enable exec outside of DSS
 plugin_root_path = Path(__file__).parents[3]
-sys.path.append(os.path.join(plugin_root_path, "python-lib"))
+sys.path.append(plugin_root_path.joinpath("python-lib").as_posix())
 from language_detection import LanguageDetector  # noqa
 
-# TODO
+
+INPUT_DF = pd.DataFrame(
+    {
+        "input_text": [
+            "Comment est votre blanquette ?",
+            "このオレはいずれ火影の名を受け継いで、先代のどの火影をも超えてやるんだ",
+            "Every performance is an adventure with this group. They're called Fire Saga.",
+            "",
+            "1",
+        ],
+    }
+).sort_values(by=["input_text"])
+
+
+OUTPUT_DF = pd.DataFrame()
+OUTPUT_DF["input_text"] = INPUT_DF["input_text"]
+OUTPUT_DF["input_text_language_code"] = ["", "es", "fr", "en", "ja"]
+OUTPUT_DF["input_text_language_name"] = ["", "Spanish", "French", "English", "Japanese"]
+OUTPUT_DF["input_text_language_score"] = [np.NaN, np.NaN, 1.0, 1.0, 1.0]
+
+
+def test_language_detection():
+    detector = LanguageDetector(minimum_score=0.2, fallback_language="es")
+    output_df = detector.detect_languages_df(INPUT_DF, "input_text").sort_values(by=["input_text"])
+    for col in output_df.columns:
+        np.testing.assert_array_equal(output_df[col].values, OUTPUT_DF[col].values)

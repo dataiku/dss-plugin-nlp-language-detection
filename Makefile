@@ -51,7 +51,7 @@ unit-tests:
 
 integration-tests:
 	@echo "[START] Running integration tests..."
-	# TODO add integration tests in v2
+	@# TODO add integration tests in v2
 	@echo "No integration tests detected :'("
 	@echo "[SUCCESS] Running integration tests: Done!"
 

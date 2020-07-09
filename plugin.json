@@ -4,7 +4,7 @@
     "meta": {
         "label": "Language Detection",
         "category": "Natural Language Processing",
-        "description": "Use open-source Python libraries (pycld3, langid) to detect the language of a text",
+        "description": "Use open-source Python libraries (pycld3, langid) to detect languages in text data",
         "author": "Dataiku (Damien JACQUEMART and Alex COMBESSIE)",
         "icon": "icon-globe",
         "tags": [

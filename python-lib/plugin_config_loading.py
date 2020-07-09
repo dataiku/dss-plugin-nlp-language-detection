@@ -5,7 +5,7 @@ from typing import Dict
 from language_dict import SUPPORTED_LANGUAGES
 
 
-def load_params(recipe_config: Dict) -> Dict:
+def load_plugin_config(recipe_config: Dict) -> Dict:
     """
     Helper function to load plugin recipe config into a clean parameter dictionary.
     Applies assertion checks for correct input config.

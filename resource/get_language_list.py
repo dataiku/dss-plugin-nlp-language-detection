@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from language_dict import SUPPORTED_LANGUAGES
 
 
