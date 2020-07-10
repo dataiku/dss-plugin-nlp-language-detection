@@ -140,3 +140,4 @@ dmypy.json
 .pytype/
 
 __pycache__
+.python-version
