@@ -50,7 +50,7 @@
         },
         {
             "name": "expert",
-            "label": "Expert",
+            "label": "Expert mode",
             "type": "BOOLEAN",
             "defaultValue": false
         },
@@ -77,10 +77,11 @@
             "type": "SELECT",
             "name": "fallback_language",
             "label": "Fallback language",
-            "description": "Fallback if the detected language is not within the chosen scope or below minimum score. Leave empty to output an empty cell.",
+            "description": "Fallback if the detected language is not within the chosen scope or below minimum score. Leave None to output an empty cell.",
             "getChoicesFromPython": true,
             "visibilityCondition": "model.expert == true",
-            "mandatory": false
+            "mandatory": false,
+            "defaultValue": "None"
         }
     ],
     "resourceKeys": []

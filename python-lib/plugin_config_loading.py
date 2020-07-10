@@ -29,9 +29,10 @@ def load_plugin_config(recipe_config: Dict) -> Dict:
     else:
         logging.info("Minimum score for detection: {:.2f}".format(params["minimum_score"]))
     # Fallback language
-    params["fallback_language"] = recipe_config.get("fallback_language", "")
-    if params["fallback_language"] == "":
+    params["fallback_language"] = recipe_config.get("fallback_language")
+    if params["fallback_language"] is None or params["fallback_language"] == "None":
         logging.info("No fallback language")
+        params["fallback_language"] = ""
     else:
         logging.info("Fallback language: {}".format(params["fallback_language"]))
     return params
