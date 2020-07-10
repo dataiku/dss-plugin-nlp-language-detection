@@ -48,7 +48,10 @@ def process_dataset_chunks(
         for i, df in tqdm(enumerate(df_iterator), total=len_iterator):
             output_df = func(df=df, **kwargs)
             if i == 0:
-                output_dataset.write_schema_from_dataframe(output_df, dropAndCreate=True)
+                if output_dataset.writePartition is None or output_dataset.writePartition == "":
+                    output_dataset.write_schema_from_dataframe(output_df, dropAndCreate=True)
+                else:
+                    output_dataset.write_schema_from_dataframe(output_df)
             writer.write_dataframe(output_df)
     logging.info("Processing dataframe chunks: Done!")
 
