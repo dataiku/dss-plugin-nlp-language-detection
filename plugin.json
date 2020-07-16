@@ -4,10 +4,12 @@
     "meta": {
         "label": "Language Detection",
         "category": "Natural Language Processing",
-        "description": "Detect language from text",
+        "description": "Use open-source Python libraries (pycld3, langid) to detect languages in text data",
         "author": "Dataiku (Damien JACQUEMART and Alex COMBESSIE)",
         "icon": "icon-globe",
-        "tags": ["NLP"],
+        "tags": [
+            "NLP"
+        ],
         "url": "https://www.dataiku.com/product/plugins/nlp-language-detection/",
         "licenseInfo": "Apache Software License",
         "supportLevel": "TIER2_SUPPORT"
