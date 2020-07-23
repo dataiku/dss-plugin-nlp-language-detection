@@ -1,5 +1,5 @@
 # Public variable to be set by the user in the Makefile
-TARGET_DSS_VERSION=7.0
+TARGET_DSS_VERSION=8.0
 
 # Private variables to be set by the user in the environment
 ifndef DKU_PLUGIN_DEVELOPER_ORG
