@@ -3,15 +3,9 @@
 # pytest automatically runs all the function starting with "test_"
 # see https://docs.pytest.org for more information
 
-import sys
-from pathlib import Path
-
 import pandas as pd
 import numpy as np
 
-# Add python-lib to the path to enable exec outside of DSS
-plugin_root_path = Path(__file__).parents[3]
-sys.path.append(plugin_root_path.joinpath("python-lib").as_posix())
 from language_detection import LanguageDetector  # noqa
 
 
