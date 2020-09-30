@@ -1,16 +1,16 @@
 {
     "id": "nlp-language-detection",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "meta": {
-        "label": "Language Detection",
+        "label": "[DEPRECATED] Language Detection",
         "category": "Natural Language Processing",
-        "description": "Use open-source Python libraries (pycld3, langid) to detect languages in text data",
+        "description": "DEPRECATED - Use https://www.dataiku.com/product/plugins/nlp-preparation/ instead",
         "author": "Dataiku (Damien JACQUEMART and Alex COMBESSIE)",
         "icon": "icon-globe",
         "tags": [
             "NLP"
         ],
-        "url": "https://www.dataiku.com/product/plugins/nlp-language-detection/",
+        "url": "https://www.dataiku.com/product/plugins/nlp-preparation/",
         "licenseInfo": "Apache Software License",
         "supportLevel": "TIER2_SUPPORT"
     }
