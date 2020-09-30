@@ -1,7 +1,7 @@
 {
     "meta": {
-        "label": "Language Detection",
-        "description": "Detect dominant languages in a text column among 114 ISO 639-1 languages",
+        "label": "[DEPRECATED] Language Detection",
+        "description": "DEPRECATED - Use https://www.dataiku.com/product/plugins/nlp-preparation/ instead",
         "icon": "icon-globe"
     },
     "kind": "PYTHON",
